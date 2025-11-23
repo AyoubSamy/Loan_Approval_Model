@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result - Loan Approval System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo-section">
+                <img src="{{ url_for('static', filename='images/school_logo.png') }}" alt="School Logo" class="logo" onerror="this.style.display='none'">
+                <div class="project-info">
+                    <h1 class="project-title">Loan Approval Prediction System</h1>
+                    <p class="subtitle">Machine Learning Based Decision Support</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Result Section -->
+        <div class="result-container">
+            <div class="result-card">
+                <h2>Prediction Result</h2>
+                
+                <div class="result-status {{ 'approved' if result == 'Approved' else 'rejected' }}">
+                    <div class="status-icon">
+                        {% if result == 'Approved' %}
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        {% else %}
+                            <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="15" y1="9" x2="9" y2="15"></line>
+                                <line x1="9" y1="9" x2="15" y2="15"></line>
+                            </svg>
+                        {% endif %}
+                    </div>
+                    <h3 class="status-text">Loan {{ result }}</h3>
+                    <p class="confidence">Confidence: {{ confidence }}</p>
+                </div>
+
+                <div class="application-summary">
+                    <h3>Application Summary</h3>
+                    <div class="summary-grid">
+                        <div class="summary-item">
+                            <span class="label">Gender:</span>
+                            <span class="value">{{ applicant_data.Gender }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Marital Status:</span>
+                            <span class="value">{{ applicant_data.Married }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Dependents:</span>
+                            <span class="value">{{ applicant_data.Dependents }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Education:</span>
+                            <span class="value">{{ applicant_data.Education }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Self Employed:</span>
+                            <span class="value">{{ applicant_data.Self_Employed }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Property Area:</span>
+                            <span class="value">{{ applicant_data.Property_Area }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Applicant Income:</span>
+                            <span class="value">${{ "%.2f"|format(applicant_data.Applicant_Income) }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Co-applicant Income:</span>
+                            <span class="value">${{ "%.2f"|format(applicant_data.Coapplicant_Income) }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Loan Amount:</span>
+                            <span class="value">${{ "%.2f"|format(applicant_data.Loan_Amount * 1000) }}</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Loan Term:</span>
+                            <span class="value">{{ applicant_data.Loan_Amount_Term }} months</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="label">Credit History:</span>
+                            <span class="value">{{ 'Good' if applicant_data.Credit_History == 1 else 'Bad' }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <a href="/" class="btn-primary">New Application</a>
+                    <button onclick="window.print()" class="btn-secondary">Print Result</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p class="footer-title">&copy; 2025 ENSET - Machine Learning Project</p>
+                <p class="footer-subtitle">Loan Approval Prediction System</p>
+                <div class="student-names">
+                    <p class="students-label">Developed by:</p>
+                    <p class="student-list">Student Name 1 • Student Name 2 • Student Name 3 • Student Name 4</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
